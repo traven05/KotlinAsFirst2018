@@ -3,6 +3,9 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import kotlin.math.abs
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -11,15 +14,15 @@ import kotlin.math.sqrt
  * Найти все корни уравнения x^2 = y
  */
 fun sqRoots(y: Double) =
-        when {
-            y < 0 -> listOf()
-            y == 0.0 -> listOf(0.0)
-            else -> {
-                val root = sqrt(y)
-                // Результат!
-                listOf(-root, root)
-            }
+    when {
+        y < 0 -> listOf()
+        y == 0.0 -> listOf(0.0)
+        else -> {
+            val root = sqrt(y)
+            // Результат!
+            listOf(-root, root)
         }
+    }
 
 /**
  * Пример
@@ -115,7 +118,11 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var v1 = v.map { it * it }
+    var sum = v1.sum()
+    return sqrt(sum)
+}
 
 /**
  * Простая
@@ -181,7 +188,23 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var n = n
+    val result = mutableListOf<Int>()
+    var del = 2
+    while (n != 1) {
+        if (n % del == 0) {
+            n /= del
+            result.add(del)
+        } else ++del
+    }
+    for (i in 0 until result.size) {
+        val element = result[i]
+        if (element < 0) result[i] = -element
+        else if (element == 1 || element == -1) result.remove(element)
+    }
+    return result.sorted().joinToString(separator = "*")
+}
 
 /**
  * Средняя

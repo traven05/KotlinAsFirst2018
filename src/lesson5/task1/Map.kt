@@ -10,8 +10,9 @@ package lesson5.task1
  * игнорируется.
  */
 fun shoppingListCost(
-        shoppingList: List<String>,
-        costs: Map<String, Double>): Double {
+    shoppingList: List<String>,
+    costs: Map<String, Double>
+): Double {
     var totalCost = 0.0
 
     for (item in shoppingList) {
@@ -31,8 +32,9 @@ fun shoppingListCost(
  * для которых телефон начинается с заданного кода страны `countryCode`
  */
 fun filterByCountryCode(
-        phoneBook: MutableMap<String, String>,
-        countryCode: String) {
+    phoneBook: MutableMap<String, String>,
+    countryCode: String
+) {
     val namesToRemove = mutableListOf<String>()
 
     for ((name, phone) in phoneBook) {
@@ -53,11 +55,13 @@ fun filterByCountryCode(
  * и вернуть отфильтрованный текст
  */
 fun removeFillerWords(
-        text: List<String>,
-        vararg fillerWords: String): List<String> {
-    val fillerWordSet = setOf(*fillerWords)
+    text: List<String>,
+    vararg fillerWords: String
+): List<String> {
 
+    val fillerWordSet = setOf(*fillerWords)
     val res = mutableListOf<String>()
+
     for (word in text) {
         if (word !in fillerWordSet) {
             res += word
@@ -94,7 +98,15 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+//fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+//    val res = mutableListOf<String, String>()
+//    if (mapA.size > mapB.size) {
+//        for ((name, phone) in mapA) {
+//            val serviceName = mapA[name]
+//            if (name in mapB)
+//        }
+//    }
+//}
 
 /**
  * Простая
@@ -106,7 +118,38 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
+    val res = mutableMapOf<Int, List<String>>()
+    val names = mutableListOf<String>()
+    val unGrades = mutableSetOf<Int>()
+    for (key in grades.keys) {
+        unGrades.add(grades[key]!!)
+    }
+
+//    for (gr in unGrades){
+//        var actualGrade = gr
+//        for ((name, grade) in grades) {
+//            if (actualGrade == grade)
+//                res.put(actualGrade, ())
+//        }
+//    }
+
+
+    for (grade in unGrades) {
+        var actualGrade = grade
+        for (key in grades.keys) {
+            if (actualGrade == grades[key]) {
+                res.put(actualGrade, mutableListOf(key))
+            }
+        }
+    }
+    for (key in grades.keys) {
+        names.add(grades[key]!!, key)
+        res.put(grades[key]!!, listOf())
+    }
+    return res
+}
+
 
 /**
  * Простая
